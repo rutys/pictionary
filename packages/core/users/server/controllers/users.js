@@ -27,9 +27,27 @@ function sendMail(mailOptions) {
 }
 
 
-
 module.exports = function(MeanUser) {
     return {
+
+       /* /!**
+         * All
+         *!/
+        all: function (req, res) {
+
+            User.find().sort('score').exec(function (err, users) {
+                console.log(users);
+                if (err) {
+                    return res.status(500).json({
+                        error: 'Cannot list the users'
+                    });
+                }
+
+                res.jsonp(users)
+            });
+
+        },
+*/
         /**
          * Auth callback
          */

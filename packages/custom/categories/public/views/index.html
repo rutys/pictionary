@@ -1,0 +1,44 @@
+<!--<div class="" data-ng-controller="CategoriesController">
+  <h1>Example view from your new awesome package</h1>
+  <h2>Package: {{package.name}}</h2>
+  <ol>
+    <li>
+      <a href="/api/categories/example/anyone" target="_self">Server route that anyone can access</a>
+    </li>
+    <li>
+      <a href="/api/categories/example/auth" target="_self">Server route that requires authentication</a>
+    </li>
+    <li>
+      <a href="/api/categories/example/admin" target="_self">Server route that requires admin user</a>
+    </li>
+    <li>
+      <a href="/api/categories/example/render" target="_self">Raw Html rendering example from using swig</a>
+    </li>
+  </ol>
+  <h3><img src="/categories/assets/img/logo.png" /></h3>
+  </br>
+  <p class="alert alert-info">You can find your package in /packages/categories</p>
+  </br>
+  <p class="alert alert-warning">MEAN versions prior to 0.3.2 will be in /node_modules/categories</p>
+  </br>
+  <h3><a href="http://learn.mean.io">Documentation</a></h3>
+  </br>
+</div>-->
+
+
+
+<section data-ng-controller="CategoriesController" data-ng-init="findOne()">
+  <span>{{category.created | date:'medium'}}</span> /
+  <span>{{category.user.name}}</span>
+  <h2>{{category.title}}</h2>
+  <div data-ng-if="hasAuthorization(category)">
+    <a class="btn" href="/categories/{{category._id}}/edit">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn" data-ng-click="remove(category);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div>{{category.content}}</div>
+</section>
+

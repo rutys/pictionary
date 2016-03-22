@@ -1,0 +1,74 @@
+.categories-example h1 {
+  background-color: purple
+}
+
+#pictionaryLogoCategories{
+  margin-top: 5px;
+  background-image: url(../img/pictionaryLogo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width:600px;
+  height:140px;
+}
+
+a[href="pictionaryGame/ביטויים"]{
+  float: right;
+  height: 120px;
+  width: 370px;
+  margin-top: 5px;
+  background:url(../img/bituim1.png)no-repeat ;
+  background-size: contain;
+  background-color: transparent;
+}
+a[href="pictionaryGame/ביטויים"]:hover{
+  float: right;
+  height: 150px;
+  width: 400px;
+  background:url(../img/bituim2.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+}
+
+
+
+a[href="pictionaryGame/עצמים"]{
+  float: right;
+  height: 120px;
+  width: 350px;
+  margin-top: 5px;
+  background:url(../img/azamim1.png)no-repeat ;
+  background-size: contain;
+  background-color: transparent;
+}
+a[href="pictionaryGame/עצמים"]:hover{
+  float: right;
+  height: 150px;
+  width: 385px;
+  margin-top: 5px;
+  background:url(../img/azamim2.png)no-repeat ;
+  background-size: contain;
+  background-color: transparent;
+}
+
+
+
+
+a[href="pictionaryGame/פעלים"]{
+  float: right;
+  height: 120px;
+  width: 350px;
+  margin-top: 5px;
+  background:url(../img/pealim1.png)no-repeat ;
+  background-size: contain;
+  background-color: transparent;
+}
+a[href="pictionaryGame/פעלים"]:hover{
+  float: right;
+  height: 150px;
+  width: 370px;
+  margin-top: 5px;
+  background:url(../img/pealim2.png)no-repeat ;
+  background-size: contain;
+  background-color: transparent;
+}

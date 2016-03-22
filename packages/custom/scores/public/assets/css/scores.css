@@ -1,0 +1,57 @@
+.categories-example h1 {
+  background-color: purple
+}
+
+.pictionaryLogo{
+  margin-top: 5px;
+  background-image: url(../img/pictionaryLogo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width:400px;
+  height:60px;
+}
+
+.users-panel{
+  margin-bottom: 0px ;
+  background-color:#8AC3C5;
+  padding:10px;
+  border-radius: 0px;
+}
+
+.users_tri_icon{
+  background: url(../img/users-tri-icon.png) top left no-repeat;
+  padding: 0;
+  margin: 0;
+  width:50%;
+  height:60%;
+  /*float: right;*/
+  position: absolute;
+  background-size: contain;
+  z-index: 1;
+  /*right:0px;*/
+  left:0px;
+}
+
+/*.pencilsHorizontalDownImg:after {display: block;
+  width: 3px;
+  height: 5px;
+  background:url(../img/pencils-horizontalDown.png) no-repeat;}*/
+/*.pencilsHorizontalDownImg::after {
+  content:url(../img/pencils-horizontalDown.png);
+  height: 70px;
+  width: auto;
+  background-size: contain;
+}*/
+
+.pencilsRight{
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100px;
+  background: url(../img/pencil-right.png) no-repeat;
+  background-size: contain;
+  width: 100%;
+  background-position: inherit;
+}
+
+
+

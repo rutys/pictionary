@@ -53,5 +53,6 @@ angular.module('mean.users').config(['$meanStateProvider', '$httpProvider', 'jwt
           }
         }
       });
+
   }
 ]);

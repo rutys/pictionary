@@ -2,33 +2,41 @@
 
     <div class="alert alert-danger animated fadeIn" ng-show="login.loginError">{{login.loginError}}</div>
 
-    <h2>Login</h2>
+    <h2 style="float: right ; width: 100%; padding-left: 310px;">התחבר</h2>
 
     <form id="login_form" ng-submit="login.login()">
-        <div class="input-wrapper">
-            <input required id="email_block" type="email" name="email" placeholder="Email Address" ng-model="login.user.email">
-            <div class="error_message">Please enter a correct info #</div>
+        <div style="width: 100%">
+        <div style="float: right" class="input-wrapper">
+            <input required id="email_block" type="email" name="email" placeholder="כתובת דואר אלקטרוני" ng-model="login.user.email">
+            <div class="error_message">נא להזין את המידע נכון</div>
             <span class="pic email"></span>
         </div>
-        <div class="input-wrapper">
-            <input required id="password_block" name="password" type="{{login.input.type}}" placeholder="{{login.input.placeholder}}" ng-model="login.user.password">
-            <div class="error_message">Please enter a correct info #</div>
+        </div>
+        <div style="width: 100%">
+        <div style="float: right" class="input-wrapper">
+            <input required id="password_block" name="password" type="{{login.input.type}}" placeholder="סיסמא" ng-model="login.user.password">
+            <div class="error_message">נא להזין את המידע נכון</div>
                 <span class="pic password {{login.input.iconClass}}" ng-click = "login.togglePasswordVisible()">
                       <div class="hide_text_password">
                           {{login.input.tooltipText}}
                       </div>
                 </span>
         </div>
-        <div class="forgot_password">
-            <a ui-sref='forgot-password'>Forgot your password?</a>
-        </div>
-        <div class="button_login">
-            <button type="submit" class="submit_button">Login</button>
-            <p>Don't have an account?</p>
-            <a ui-sref='auth.register' >Sign up</a>
-        </div>
-        <div class="woman_ninja_bottom">
-            <img src="/theme/assets/img/woman_ninja.png" alt="#">
         </div>
     </form>
+
+
+        <div style="height: 17px" class="forgot_password ">
+            <a style="float: right" style="font-family:'myPictionaryFont', Arial, sans-serif;" ui-sref='forgot-password'>?שכחת את הסיסמה</a>
+        </div>
+        <div style="float: right" class="button_login">
+            <button type="submit" class="submit_button" style="float: right">התחבר</button>
+            <a ui-sref='auth.register' >הרשם</a>
+            <p style="float: right">?עדיין לא נרשמת</p>
+        </div>
+        <div class="woman_ninja_bottom">
+            <!--<img src="/theme/assets/img/woman_ninja.png" alt="#">-->
+            <!--<img src="/theme/assets/img/pictionaryLogo.png">-->
+        </div>
+
 </div>

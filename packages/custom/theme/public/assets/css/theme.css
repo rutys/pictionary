@@ -13,6 +13,9 @@
     font-weight: bold;
     font-style: normal;
 }
+body{
+    font-family: "myPictionaryFont", Arial, sans-serif;
+}
 
 .welcome.container-fluid {
   margin:18px;
@@ -22,7 +25,7 @@
 }
 
 .welcome .info, .welcome .featured {
-  float:left;
+  float:right;
 }
 .welcome .row {
   margin-top:10px;
@@ -38,7 +41,8 @@
 .welcome {
   padding-bottom: 4px;
   /*font-family: "futura_bkbook";*/
-  font-family:"open_sans_hebrewregular";
+  font-family: "myPictionaryFont", Arial, sans-serif;
+  /*font-family:"open_sans_hebrewregular";*/
   font-size:16px;
   margin: 0;
   margin:10px;
@@ -47,10 +51,11 @@
 .welcome .info {
   margin-top:10px;
   background-color: #fff;
-	padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .welcome h1 {
+  font-family: "myPictionaryFont", Arial, sans-serif;
   font-size:30px;
   text-transform: uppercase;
   color:#0e0e0e;
@@ -67,6 +72,7 @@
 }
 
 .welcome h3 {
+    font-family: "myPictionaryFont", Arial, sans-serif;
   font-size:17px;
 /*  font-weight:300; */
   text-transform: uppercase;
@@ -79,6 +85,7 @@
 
 
 .welcome .packages, .welcome .community, .welcome .featured-packages {
+    font-family: "myPictionaryFont", Arial, sans-serif;
   clear:both;
   margin-top:80px;
   height:100%;
@@ -119,7 +126,7 @@
 }
 
 .docs-desc {
-  float:left;
+  float:right;
 }
 
 .docs-link {
@@ -151,7 +158,7 @@
 /* Packages */
 
 .packages .package{
-  float:left;
+  float:right;
   width:200px;
   margin-right:40px;
 }
@@ -170,7 +177,7 @@
 
 /* Community */
 .welcome-sprite{
-  float:left;
+  float:right;
   width:53px;
   height:53px;
 }
@@ -192,7 +199,7 @@
 }
 
 .community .package {
-  float:left;
+  float:right;
   margin-bottom:10px;
 }
 .community .package p{
@@ -257,5 +264,6 @@
 
 .featured-sites p, .featured-packages p {
   font-size:14px;
+  font-family: "myPictionaryFont", Arial, sans-serif;
   margin-left:0;
 }

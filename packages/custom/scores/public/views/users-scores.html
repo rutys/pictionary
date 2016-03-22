@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<div class="row" data-ng-controller="ScoresController" data-ng-init="init()">
+    <div class="col-lg-1 col-lg-offset-11">
+    <div  class="col-lg-6 pencilsRight" style="float: right"></div>
+   </div>
+    <div class="col-lg-11">
+    <legend>
+        <div class="pictionaryLogo"/>
+    </legend>
+ <!--   <div class="col-lg-4 col-lg-offset-2" style="margin-right:10px;">
+
+    <h4>ניקוד</h4>
+
+    <ul class="users users_per_chanel" >&lt;!&ndash;class="nav nav-pills nav-stacked"&ndash;&gt;
+        <li data-ng-repeat="u in scores">
+            {{u.username}} : {{u.score}}
+        </li>
+    </ul>
+</div>-->
+    <div class="user-window col-lg-6 col-lg-offset-3" id="user_window_1" style="margin-right:10px;">
+        <div class="wrap_panel col-xs-12 col-md-12">
+            <span class="users_tri_icon"></span>
+            <div class="users-panel" style="height:450px;" >
+
+                <div class="panel-body user_container_base" style="margin-top:50px" >
+                    <div class="users users_per_chanel" data-ng-repeat="u in scores">
+                        <p> {{u.username}} : {{u.score}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--</div>
+</section>-->

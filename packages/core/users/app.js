@@ -6,6 +6,7 @@
 var mean = require('meanio'),
   Module = mean.Module;
 
+
 function MeanUserKlass () {
   Module.call(this, 'users');
   this.auth = null;
@@ -19,6 +20,15 @@ MeanUserKlass.prototype = Object.create(Module.prototype,{constructor:{
 }});
 
 var MeanUser = new MeanUserKlass();
+
+
+MeanUser.menus.add({
+    title: 'scores',
+    link: 'scores',
+    roles: ['authenticated'],
+    menu: 'main'
+});
+
 
 /*
  * All MEAN packages require registration
