@@ -1,0 +1,46 @@
+<div class="user-window col-xs-5 col-md-10" id="user_window_1" style="margin-right:10px;">
+    <div class="wrap_panel col-xs-12 col-md-12">
+        <span class="users_tri_icon"></span>
+        <div class="users-panel" style="height:150px;" >
+
+            <div class="panel-body user_container_base" style="margin-top:50px" >
+                <div class="users users_per_chanel" data-ng-repeat="user in users">
+                    <p>{{user.username}} • {{user.score}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<div class="chat-window col-xs-5 col-md-10" id="chat_window_1" style="margin-right:10px;">
+    <div class="wrap_panel col-xs-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading top-bar">
+                <div class="col-md-8 col-xs-8">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-comment">שחקנים</span></h3>
+                </div>
+            </div>
+
+            <div class="panel-body users_container_base"  data-ng-repeat="user in users">
+                <div class="row msg_container" >&lt;!&ndash;todo:ng-class="activeUser.username==user.username?'activeUser':''"&ndash;&gt;
+                    <div class="base_receive">
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
+                                 class=" img-responsive ">
+                        </div>
+                        <div class="col-xs-10 col-md-10">
+                            <div class="users users_per_chanel">
+                                <p>{{user.username}}</p>
+                                <p>{{user.score}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>-->

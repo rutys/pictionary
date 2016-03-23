@@ -1,0 +1,62 @@
+
+<div id="mainPictionary" data-ng-controller="MeanSocketController">
+    <legend>
+    <div class="pictionaryLogo"/>
+   <!-- <a class="pull-right" ui-sref="Mean socket help page" target="_blank">Help</a>-->
+</legend>
+    <div class="row" ng-show="gameStatus==='wait'" id="wait" style="background-color: black;
+    height: 800px;
+    width: 100%;
+    opacity: 0.5;
+    position: fixed;
+    z-index: 1000;
+    margin: 0px auto 0px auto;
+     text-align: center;
+     color:white;
+     direction:rtl;
+     font-size: xx-large;
+    padding: 10%;" >
+        חכה לסיבוב הבא...
+    </div>
+    <div class="row">
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{modalHeader}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{modalBody}}</p>
+                </div>
+                <!--<div class="modal-footer">
+                    &lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <div class="row" ng-show="gameStatus!=='wait'">
+        <div class="col-lg-4">
+                <chat class="row" style="margin:0px"/><!--send="sendMessage()" messages="messages" message="message"-->
+                <users class="row"/>
+        </div>
+        <div class="col-lg-8 ">
+            <div class="row">
+
+                <p id="status" style="float: right; display: inline; margin-right:150px; color:#E66C5C">{{statusText}}</p>
+            </div>
+            <div class="row">
+                <div pictionary-canvas myturn="myturn" gamesstatus="gameStatus" timeleft="timeleft" style="height:400px"></div>
+                <!--{{gameStatus}}-->
+            </div>
+        </div>
+    </div>
+
+</div>

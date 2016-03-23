@@ -1,0 +1,36 @@
+<div id="canvasTools" class="col-lg-2" style="height:100%">
+
+    <p id="timer">{{timeleft}}</p>
+
+<!--    <input id="pencilBTN" type="button" />
+    <input id="eraseBTN" type="button" />
+    <button id="bucketBTN" colorpicker type="button" colorpicker-position="top" ng-model="chosenColor"></button>{{chosenColor}}
+    <input id="clearBTN" type="button" ng-click="clearCanvas()" />
+
+
+    <input id="startBTN" type="button" id="readyToDraw" ng-click="readyToDraw()" value="readyToDraw"
+           ng-disabled="$parent.gameStatus!=='readyToDraw'"/>-->
+
+    <div id="pencilBTN" ng-click="erase=false" ng-disabled="myturn?false:true" ng-class="myturn?'activeBTN':'notActiveBTN'"/>
+    <div id="eraseBTN" ng-click="erase=true" ng-disabled="myturn?false:true" ng-class="myturn?'activeBTN':'notActiveBTN'"/>
+    <div id="bucketBTN" type="button" >
+        <div id="bucket" colorpicker type="button" colorpicker-position="top" ng-model="chosenColor" ng-disabled="myturn?false:true" ng-class="myturn?'activeBTN':'notActiveBTN'" ng-style="{'background-color':chosenColor}">
+        </div>
+    </div>
+    <div id="clearBTN" ng-click="clearCanvas()" ng-disabled="myturn?false:true" ng-class="myturn?'activeBTN':'notActiveBTN'" />
+
+   <!-- <label>$parent.gameStatus: {{$parent.gameStatus}} $parent.gameStatus!=='readyToDraw':{{$parent.gameStatus!=='readyToDraw'}} myturn:{{myturn}}</label>-->
+    <div id="startBTN" id="readyToDraw" ng-click="readyToDraw()"
+           ng-disabled="$parent.gameStatus!=='readyToDraw'" ng-class="$parent.gameStatus!=='readyToDraw'?'notActiveBTN':'activeBTN'"/>
+</div>
+<div id="pictionaryCanvasWrapper" class="col-lg-8" style="height:100%">
+   <!-- <div id="cursor" ng-show="myturn?true:false" ></div>-->
+    <canvas id="pictionaryCanvas" class="shadowEffect" ng-class="myCursor()"></canvas>
+    <!--style="width:100%; height:300px; border:1px solid; border-color:#c3c3c3;"-->
+    <!--ng-class="myturn?'activeCanvas':'notActiveCanvas'"-->
+    <!--ng-width="{{getWidth()}}" ng-height="{{getHeight()}}"-->
+</div>
+<div id="pencilsVerticalImgWrapper" class="col-lg-2" style="height:100%">
+    <div class="pencilsVerticalImg"></div>
+    <!--<img width="100" height="80" src="../../../../core/system/public/assets/img/pencils-horizontal.png">--> <!--src="../assets/img/pencils-horizontal.png">-->
+</div>
