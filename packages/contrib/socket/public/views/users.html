@@ -1,11 +1,13 @@
 <div class="user-window col-xs-5 col-md-10" id="user_window_1" style="margin-right:10px;">
     <div class="wrap_panel col-xs-12 col-md-12">
         <span class="users_tri_icon"></span>
-        <div class="users-panel" style="height:150px;" >
+        <div class="users-panel" style="height:180px;" >
 
-            <div class="panel-body user_container_base" style="margin-top:50px" >
+            <div class="panel-body user_container_base" style="height: 100px;overflow-y: auto; margin-top:50px" >
                 <div class="users users_per_chanel" data-ng-repeat="user in users">
-                    <p>{{user.username}} • {{user.score}}</p>
+                    <div style="margin-top: 3px; margin-bottom: 3px; font-size: large; background-color: white;height: 35px; padding-top: 5px; border-radius: 3px;text-align: right;color: #026A72;padding-right: 15px;padding-left: 15px;">
+                        <div style="float: right; font-weight: bold;">{{user.username}}</div> <div style="float: left">{{user.score}}</div>
+                    </div>
                 </div>
             </div>
         </div>
