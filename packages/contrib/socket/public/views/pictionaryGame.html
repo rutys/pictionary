@@ -1,9 +1,8 @@
-
-<div id="mainPictionary" data-ng-controller="MeanSocketController">
+<div id="mainPictionary" data-ng-controller="MeanSocketController" ng-init="init()">
     <legend>
-    <div class="pictionaryLogo"/>
-   <!-- <a class="pull-right" ui-sref="Mean socket help page" target="_blank">Help</a>-->
-</legend>
+        <div class="pictionaryLogo"/>
+        <!-- <a class="pull-right" ui-sref="Mean socket help page" target="_blank">Help</a>-->
+    </legend>
     <div class="row" ng-show="gameStatus==='wait'" id="wait" style="background-color: black;
     height: 800px;
     width: 100%;
@@ -15,45 +14,72 @@
      color:white;
      direction:rtl;
      font-size: xx-large;
-    padding: 10%;" >
+    padding: 10%;">
         חכה לסיבוב הבא...
     </div>
-    <div class="row">
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+<!--    <div class="row">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        &lt;!&ndash; Modal &ndash;&gt;
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{modalHeader}}</h4>
+                &lt;!&ndash; Modal content&ndash;&gt;
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{modalHeader}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{modalBody}}</p>
+                    </div>
+                    &lt;!&ndash;<div class="modal-footer">
+                        &lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;
+                    </div>&ndash;&gt;
                 </div>
-                <div class="modal-body">
-                    <p>{{modalBody}}</p>
-                </div>
-                <!--<div class="modal-footer">
-                    &lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;
-                </div>-->
+
             </div>
-
         </div>
+    </div>--><!--ng-controller="ModalDemoCtrl"-->
+    <div >
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" style="direction: rtl">{{modalHeader}}</h3>
+            </div>
+            <div class="modal-body" style="direction: rtl">
+                {{modalBody}}
+                <!--<ul>
+                    <li ng-repeat="item in items">
+                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>--><!--
+                Selected: <b>{{ selected.item }}</b>-->
+            </div>
+<!--            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>-->
+        </script>
+
+        <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
+
     </div>
-    </div>
+
 
     <div class="row" ng-show="gameStatus!=='wait'">
         <div class="col-lg-4">
-                <chat class="row" style="margin:0px"/><!--send="sendMessage()" messages="messages" message="message"-->
-                <users class="row"/>
+            <chat class="row" style="margin:0px"/><!--send="sendMessage()" messages="messages" message="message"-->
+            <users class="row"/>
         </div>
         <div class="col-lg-8 ">
             <div class="row">
-
-                <p id="status" style="float: right; display: inline; margin-right:150px; color:#E66C5C">{{statusText}}</p>
+                <div id="phrese">
+                    <p id="status" style="float: right; display: inline; margin-right:150px; color:#E66C5C">
+                        {{statusText}}</p>
+                </div>
             </div>
             <div class="row">
-                <div pictionary-canvas myturn="myturn" gamesstatus="gameStatus" timeleft="timeleft" style="height:400px"></div>
+                <div pictionary-canvas myturn="myturn" gamesstatus="gameStatus" timeleft="timeleft"
+                     style="height:400px"></div>
                 <!--{{gameStatus}}-->
             </div>
         </div>

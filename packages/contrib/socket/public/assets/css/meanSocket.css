@@ -176,3 +176,9 @@
 #pencilsVerticalImgWrapper{
     padding-left: 0px;
 }
+
+#phrese{
+    background-image: url(../img/phrase.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}

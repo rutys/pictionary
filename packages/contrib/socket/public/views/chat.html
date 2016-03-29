@@ -19,27 +19,30 @@
                 <div ng-repeat="m in messages" class="row msg_container">
                     <!--receive-->
                     <div ng-if="m.user._id!==user._id" class="base_receive">
+
+                        <div class="col-md-2 col-xs-2 avatar" style="width: 3px;height: 10px;border-top: 28px solid  rgb(230, 229, 222); border-left: 13px solid transparent;left: 8px;">
+                            <div class="tri_sent"></div>
+                        </div>
                        <!-- <div class="col-md-2 col-xs-2 avatar">
                             <div class="tri_sent"></div>
                             &lt;!&ndash;<img src="" class=" img-responsive ">&ndash;&gt; &lt;!&ndash;http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg&ndash;&gt;
                         </div>-->
-                        <div class="col-xs-10 col-md-10">
-
-                            <div class="messages msg_receive">
+                        <div class="col-xs-10 col-md-10 ">
+                            <div class="messages msg_receive" style=" margin-right: 25px; background-color: rgb(230, 229, 222);">
                                 <p>{{m.message}}</p>
-                                <time>{{m.user.username}}</time><!-- • {{m.time | date:'shortTime'}}-->
+                                <time style="color: #6fa5d2">{{m.user.username}}</time><!-- • {{m.time | date:'shortTime'}}-->
                             </div>
                         </div>
                     </div>
                     <!--sent-->
                     <div ng-if="m.user._id===user._id" class="base_sent">
                         <div class="col-xs-10 col-md-10">
-                            <div class="messages msg_sent">
+                            <div class="messages msg_sent" style=" margin-left: 25px;">
                                 <p>{{m.message}}</p>
-                                <time>{{m.user.username}}</time><!--{{m.time | date:'shortTime'}}•-->
+                                <time style="color: #6fa5d2">{{m.user.username}}</time><!--{{m.time | date:'shortTime'}}•-->
                             </div>
                         </div>
-                        <div class="col-md-2 col-xs-2 avatar">
+                        <div class="col-md-2 col-xs-2 avatar" style="width: 3px;height: 10px;border-top: 28px solid #FFFFFF; border-right: 13px solid transparent;left: -8px;">
                             <div class="tri_sent"></div>
                            <!-- <img src="" class=" img-responsive ">--><!--http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg-->
                         </div>

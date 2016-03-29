@@ -59,13 +59,11 @@
     margin-right:0;
 }
 .tri_sent{
-    border:8px solid #fff;
-    left:-8px;
-    border-radius:50%;
-    width:16px;
-    height:16px;
-    position: absolute;
-    top:-8px;
+    /*width: 3px;*/
+    /*height: 10px;*/
+    /*border-top: 28px solid #FFFFFF;*/
+    /*border-right: 13px solid transparent;*/
+    /*left: -9px;*/
 }
 
 .messages {
@@ -99,7 +97,7 @@ img {
 }
 /*containers of users messages*/
 .base_receive > .avatar:after {
-    content: "";
+/*    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -107,7 +105,7 @@ img {
     height: 0;
     border: 5px solid #FFF;
     border-left-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);*/
 }
 
 .base_sent {
@@ -123,7 +121,7 @@ img {
 }
 
 .base_sent > .avatar:after {
-    content: "";
+/*    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -132,7 +130,7 @@ img {
     border: 5px solid white;
     border-right-color: transparent;
     border-top-color: transparent;
-    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close*/
 }
 
 .msg_sent > time{

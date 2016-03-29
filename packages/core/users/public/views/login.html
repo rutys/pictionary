@@ -14,29 +14,29 @@
         </div>
         <div style="width: 100%">
         <div style="float: right" class="input-wrapper">
-            <input required id="password_block" name="password" type="{{login.input.type}}" placeholder="סיסמא" ng-model="login.user.password">
+            <input required id="password_block" name="password" type="{{login.input.type}}" placeholder="סיסמא" ng-model="login.user.password"/>
             <div class="error_message">נא להזין את המידע נכון</div>
-                <span class="pic password {{login.input.iconClass}}" ng-click = "login.togglePasswordVisible()">
+                <span class="pic password {{login.input.iconClass}}" ng-click = "login.togglePasswordVisible()"/>
                       <div class="hide_text_password">
                           {{login.input.tooltipText}}
                       </div>
                 </span>
         </div>
         </div>
-    </form>
+
 
 
         <div style="height: 17px" class="forgot_password ">
             <a style="float: right" style="font-family:'myPictionaryFont', Arial, sans-serif;" ui-sref='forgot-password'>?שכחת את הסיסמה</a>
         </div>
-        <div style="float: right" class="button_login">
-            <button type="submit" class="submit_button" style="float: right">התחבר</button>
-            <a ui-sref='auth.register' >הרשם</a>
+        <div style="float: right; padding-left: 30px;" class="button_login">
+            <button type="submit" class="submit_button" style="float: right;  margin-left: 15px;">התחבר</button>
             <p style="float: right">?עדיין לא נרשמת</p>
+            <a style="float: right" ui-sref='auth.register' >הרשם</a>
         </div>
-        <div class="woman_ninja_bottom">
+        <div class="woman_ninja_bottom"></div>
             <!--<img src="/theme/assets/img/woman_ninja.png" alt="#">-->
             <!--<img src="/theme/assets/img/pictionaryLogo.png">-->
-        </div>
+    </form>
 
 </div>

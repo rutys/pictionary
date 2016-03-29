@@ -1,7 +1,66 @@
+
+
+
+
+
+
 'use strict';
 
-angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$state', '$stateParams', 'Global', 'MeanSocket', 'MeanUser', '$interval',
-    function ($scope, $state, $stateParams, Global, MeanSocket, MeanUser, $interval) {
+/*
+angular.module('mean.socket').controller('ModalDemoCtrl', function ($scope, $uibModal, $log, $rootScope) {
+
+/!*    $scope.items = ['item1', 'item2', 'item3'];*!/
+
+    $scope.animationsEnabled = true;
+
+    $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                modalHeader: function () {
+                    return $rootScope.modalHeader;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //$scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.toggleAnimation = function () {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
+    };
+
+});*/
+
+
+
+angular.module('mean.socket').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, modalHeader, modalBody) {
+
+    $scope.modalHeader = modalHeader;
+    $scope.modalBody = modalBody;
+    //$scope.selected = {
+    //    item: $scope.items[0]
+    //};
+    //
+    //$scope.ok = function () {
+    //    $uibModalInstance.close($scope.selected.item);
+    //};
+    //
+    //$scope.cancel = function () {
+    //    $uibModalInstance.dismiss('cancel');
+    //};
+});
+
+angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$state', '$stateParams', 'Global', 'MeanSocket', 'MeanUser', '$interval', '$rootScope', '$uibModal',
+    function ($scope, $state, $stateParams, Global, MeanSocket, MeanUser, $interval, $rootScope, $uibModal) {
         $scope.global = Global;
         $scope.package = {
             name: 'socket'
@@ -22,8 +81,39 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         /*$scope.messages = [];
          $scope.message = '';*/
         $scope.users = [];
-        $scope.modalHeader = '';
-        $scope.modalBody = '';
+        $scope.modalHeader = 'modalHeader';
+        $scope.modalBody = 'modalBody';
+
+        $scope.animationsEnabled = true;
+
+        $scope.open = function (size) {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    modalHeader: function () {
+                        return $scope.modalHeader;
+                    },
+                    modalBody: function () {
+                        return $scope.modalBody;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                //$scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
+
 
 
         MeanSocket.on('user:channel:joined:' + $scope.channel, function (channelInfo) {
@@ -35,13 +125,17 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
         MeanSocket.on("activeUser:disconnect:" + $scope.channel, function (user) {
             console.log('activeUser:disconnect ');
-            stopTimer();
+            if(!$scope.myturn){
+                $scope.modalHeader = "הסיבוב נגמר";
+                $scope.modalBody = "המשתמש עזב את המשחק";
+                $scope.open();
+            }
         });
 
 
         //todo
         MeanSocket.on('wait:' + $scope.channel, function (word) {
-            $scope.gameStatus = "wait";
+            $sco    pe.gameStatus = "wait";
             console.log('wait');
         });
 
@@ -50,7 +144,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
             $scope.myword = word;
             $scope.gameStatus = "youDraw";
 
-            $scope.statusText = 'מילתך היא:'+$scope.myword;
+            $scope.statusText = 'מילתך היא: '+$scope.myword;
 
             // turn on drawing timer
 
@@ -130,17 +224,14 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
                 if (MeanUser.user._id == data.user._id) {
                     $scope.modalHeader = "כל הכבוד!";
                     $scope.modalBody = "ניחשת נכון המילה היא: " + data.word;
-                    $("#myModal").modal();
-                    /*alert("well done you guessed it");*/
+                    $scope.open();
                 }
-                else {
-                    $scope.modalHeader = "";
-                    $scope.modalBody = data.user.username + " ניחש נכון את המילה:" + data.word;
-                    $("#myModal").modal();
-                    /*alert(data.user.username + " guessed the word " + data.word);*/
+                else{
+                    $scope.modalHeader = "המילה נוחשה נכון!";
+                    $scope.modalBody =data.user.username + " ניחש את המילה: "+ data.word;
+                    $scope.open();
                 }
             }
-
         });
 
 
@@ -148,7 +239,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
             if ($scope.gameStatus !== 'wait') {
             $scope.modalHeader = "נגמר הזמן...";
             $scope.modalBody = "המילה היתה: " + data.word;
-            $("#myModal").modal();
+            $scope.open();
             /*alert("The turn is over! The word was " + data.word);*/
             }
         });
@@ -158,18 +249,21 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
          });*/
 
+        $scope.init=function(){
+            $scope.channel = $stateParams.category;
+            //join channel
+            //$scope.statusText = 'status: online';
+            console.log("logged user: " + MeanUser.user.name);
+            MeanSocket.emit('channel:join', {
+                channel: $scope.channel,
+                user: MeanUser.user
+            });
+        }
 
-        //join channel
-        //$scope.statusText = 'status: online';
-        console.log("logged user: " + MeanUser.user.name);
-        MeanSocket.emit('channel:join', {
-            channel: $scope.channel,
-            user: MeanUser.user
-        });
 
         $scope.$on('$destroy', function () {
             // Make sure that the interval is destroyed too
-            $scope.stopTimer();
+            stopTimer();
         });
 
         /*        //disconnect

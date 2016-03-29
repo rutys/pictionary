@@ -55,6 +55,7 @@ module.exports = function(Categories, app, auth) {
   var categories = require('../controllers/categories');
 
   app.route('/api/categories').get(categories.all);
+  app.route('/api/initDB').get(categories.initDB);
       //.post(auth.requiresLogin, hasPermissions,categories.create);
 //  app.route('/api/categories/:categoryId')
   //    .get(auth.isMongoId, categories.show)

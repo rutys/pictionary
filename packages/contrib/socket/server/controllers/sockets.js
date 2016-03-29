@@ -105,7 +105,7 @@ exports.getActiveGame = function (channel, cb) {
     Channel.findOne({
         channel: channel
     }).populate('activeUser', 'name username').exec(function (err, data) {
-        if (data.activeUser) {
+        if (data&& data.activeUser) {
 
             console.log("channel.activeUser: " + data.activeUser);
             console.log("channel.startTime: " + data.startTime);
@@ -115,7 +115,10 @@ exports.getActiveGame = function (channel, cb) {
         }
         else {
             console.log("not active");
-            return cb({activeUser: data.activeUser});
+            if (data)
+                return cb({activeUser: data.activeUser});
+            else
+                return cb({activeUser: undefined});
         }
     });
 };
@@ -224,6 +227,8 @@ exports.saveActiveGame = function (data, cb) {
 
 exports.updateJoinedUser = function (data, cb) {
     User.findById(data.user._id, function (err, doc) {
+        if(!doc)
+        return;
         doc.socketId = data.socketId;
         doc.channel = data.channel;
 
@@ -310,29 +315,55 @@ exports.subScores = function (data, cb) {
  */
 
 
-exports.checkinit = function () {
-    var channel = new Channel();
-    channel.channel = "עצמים";
-    channel.words = ["תפוח", "שולחן", "מלפפון", "מנורה", "ילד"];
-    channel.word = undefined;
-    channel.startTime = undefined;
-    channel.activeUser = undefined;
-    channel.save(function (err) {
+exports.initDB = function () {
+    User.remove({}, function(){});
+    Line.remove({}, function(){});
+    Message.remove({}, function(){});
 
+    Channel.remove({}, function(){
+        db.channels.insert([{channel: "עצמים", words : ["תפוח", "שולחן", "מלפפון", "מנורה", "ילד"], word :undefined, startTime :undefined,  activeUser : undefined},
+            {channel: "ביטויים", words : ["התפוח לא נופל רחוק מן העץ", "חתול בשק", "מרוב עצים לא רואים את היער", " הקש ששבר את גב הגמל", "אזניים לכותל", "טובים השניים מן האחד"], word :undefined, startTime :undefined,  activeUser :undefined},
+            {channel: "פעלים", words : ["לשתות", "לאכול", "לעוף", "לרקוד", "ללכת"], word :undefined, startTime :undefined,  activeUser : undefined}])
+
+        var channel = new Channel();
+        channel.channel = "עצמים";
+        channel.words = ["תפוח", "שולחן", "מלפפון", "מנורה", "ילד"];
+        channel.word = undefined;
+        channel.startTime = undefined;
+        channel.activeUser = undefined;
+        channel.save(function (err) {
+
+        });
+
+        var channel = new Channel();
+        channel.channel = "ביטויים";
+        channel.words = ["התפוח לא נופל רחוק מן העץ", "חתול בשק", "מרוב עצים לא רואים את היער", " הקש ששבר את גב הגמל", "אזניים לכותל", "טובים השניים מן האחד"];
+        channel.word = undefined;
+        channel.startTime = undefined;
+        channel.activeUser = undefined;
+        channel.save(function (err) {
+            /*if (err) console.log(err);
+             Channel.findOne({
+             _id: channel._id
+             }).exec(function(err, channel) {
+             return channel;
+             });*/
+        });
+
+        var channel = new Channel();
+        channel.channel = "פעלים";
+        channel.words = ["לשתות", "לאכול", "לעוף", "לרקוד", "ללכת"];
+        channel.word = undefined;
+        channel.startTime = undefined;
+        channel.activeUser = undefined;
+        channel.save(function (err) {
+            /*if (err) console.log(err);
+             Channel.findOne({
+             _id: channel._id
+             }).exec(function(err, channel) {
+             return channel;
+             });*/
+        });
     });
 
-    var channel = new Channel();
-    channel.channel = "פתגמים";
-    channel.words = ["התפוח לא נופל רחוק מן העץ", "חתול בשק", "מרוב עצים לא רואים את היער", " הקש ששבר את גב הגמל", "אזניים לכותל"];
-    channel.word = undefined;
-    channel.startTime = undefined;
-    channel.activeUser = undefined;
-    channel.save(function (err) {
-        /*if (err) console.log(err);
-         Channel.findOne({
-         _id: channel._id
-         }).exec(function(err, channel) {
-         return channel;
-         });*/
-    });
 };
