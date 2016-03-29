@@ -1,45 +1,38 @@
-
-
-
-
-
-
 'use strict';
 
 /*
-angular.module('mean.socket').controller('ModalDemoCtrl', function ($scope, $uibModal, $log, $rootScope) {
+ angular.module('mean.socket').controller('ModalDemoCtrl', function ($scope, $uibModal, $log, $rootScope) {
 
-/!*    $scope.items = ['item1', 'item2', 'item3'];*!/
+ /!*    $scope.items = ['item1', 'item2', 'item3'];*!/
 
-    $scope.animationsEnabled = true;
+ $scope.animationsEnabled = true;
 
-    $scope.open = function (size) {
+ $scope.open = function (size) {
 
-        var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            size: size,
-            resolve: {
-                modalHeader: function () {
-                    return $rootScope.modalHeader;
-                }
-            }
-        });
+ var modalInstance = $uibModal.open({
+ animation: $scope.animationsEnabled,
+ templateUrl: 'myModalContent.html',
+ controller: 'ModalInstanceCtrl',
+ size: size,
+ resolve: {
+ modalHeader: function () {
+ return $rootScope.modalHeader;
+ }
+ }
+ });
 
-        modalInstance.result.then(function (selectedItem) {
-            //$scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
+ modalInstance.result.then(function (selectedItem) {
+ //$scope.selected = selectedItem;
+ }, function () {
+ $log.info('Modal dismissed at: ' + new Date());
+ });
+ };
 
-    $scope.toggleAnimation = function () {
-        $scope.animationsEnabled = !$scope.animationsEnabled;
-    };
+ $scope.toggleAnimation = function () {
+ $scope.animationsEnabled = !$scope.animationsEnabled;
+ };
 
-});*/
-
+ });*/
 
 
 angular.module('mean.socket').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, modalHeader, modalBody) {
@@ -115,7 +108,6 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         };
 
 
-
         MeanSocket.on('user:channel:joined:' + $scope.channel, function (channelInfo) {
             console.log('user:joined ');
         });
@@ -124,34 +116,41 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         });
 
         MeanSocket.on("activeUser:disconnect:" + $scope.channel, function (user) {
-            console.log('activeUser:disconnect ');
-            if(!$scope.myturn){
-                $scope.modalHeader = "הסיבוב נגמר";
-                $scope.modalBody = "המשתמש עזב את המשחק";
-                $scope.open();
+            if ($state.current.name === 'Pictionary game') {
+                console.log('activeUser:disconnect ');
+                if (!$scope.myturn) {
+                    $scope.modalHeader = "הסיבוב נגמר";
+                    $scope.modalBody = "המשתמש עזב את המשחק";
+                    $scope.open();
+                    stopTimer();
+                }
             }
         });
 
 
         //todo
         MeanSocket.on('wait:' + $scope.channel, function (word) {
-            $scope.gameStatus = "wait";
-            console.log('wait');
+            if ($state.current.name === 'Pictionary game') {
+                $scope.gameStatus = "wait";
+                console.log('wait');
+            }
         });
 
         MeanSocket.on('youDraw:' + $scope.channel, function (word) {
-            $scope.myturn = true;
-            $scope.myword = word;
-            $scope.gameStatus = "youDraw";
+            if ($state.current.name === 'Pictionary game') {
+                $scope.myturn = true;
+                $scope.myword = word;
+                $scope.gameStatus = "youDraw";
 
-            $scope.statusText = 'מילתך היא: '+$scope.myword;
+                $scope.statusText = 'מילתך היא: ' + $scope.myword;
 
-            // turn on drawing timer
+                // turn on drawing timer
 
-            MeanSocket.emit("youDrawSuccess:" + $scope.channel, {
-                channel: $scope.channel,
-                user: MeanUser.user
-            });
+                MeanSocket.emit("youDrawSuccess:" + $scope.channel, {
+                    channel: $scope.channel,
+                    user: MeanUser.user
+                });
+            }
         });
 
         /*        function timerTickActiveUser() {
@@ -166,81 +165,95 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
          }*/
 
         function timerTick() {
-            if ($scope.timeleft > 0) {
-                var x = $scope.timeleft - 1;
-                $scope.timeleft = x;
-                /*timerObj.text($scope.timeleft);*/
-            } else {
-                stopTimer();
-                //only active user emit this
-                if ($scope.myturn) {
-                    MeanSocket.emit('turnFinished:' + $scope.channel, {
-                        channel: $scope.channel,
-                        user: MeanUser.user._id
-                    });
+            if ($state.current.name === 'Pictionary game') {
+                if ($scope.timeleft > 0) {
+                    var x = $scope.timeleft - 1;
+                    $scope.timeleft = x;
+                    /*timerObj.text($scope.timeleft);*/
+                } else {
+                    stopTimer();
+                    //only active user emit this
+                    if ($scope.myturn) {
+                        MeanSocket.emit('turnFinished:' + $scope.channel, {
+                            channel: $scope.channel,
+                            user: MeanUser.user._id
+                        });
+                    }
                 }
             }
         }
 
         function stopTimer() {
-            if (angular.isDefined($scope.drawingTimer)) {
-                $interval.cancel($scope.drawingTimer);
-                $scope.drawingTimer = undefined;
-                $scope.timeleft = timeConfig;
+            if ($state.current.name === 'Pictionary game') {
+                if (angular.isDefined($scope.drawingTimer)) {
+                    $interval.cancel($scope.drawingTimer);
+                    $scope.drawingTimer = undefined;
+                    $scope.timeleft = timeConfig;
+                }
             }
         }
 
         function startTimer() {
-            $scope.drawingTimer = $interval(timerTick, 1000);
+            if ($state.current.name === 'Pictionary game') {
+                $scope.drawingTimer = $interval(timerTick, 1000);
+            }
         }
 
         MeanSocket.on('friendDraw:' + $scope.channel, function (data) {
-            startTimer();
-            $scope.activeUser = data.activeUser;
-            if (!$scope.myturn) {
-                console.log("friend draw");
-                $scope.gameStatus = "friendDraw";
-                $scope.statusText = data.activeUser.username +' '+ ':מצייר כעת';
-                //$scope.timeleft = data.remainingTime / 1000;
-                // turn on drawing timer
-                //$scope.drawingTimer = setInterval(timerTick, 1000);
+            if ($state.current.name === 'Pictionary game') {
+                startTimer();
+                $scope.activeUser = data.activeUser;
+                if (!$scope.myturn) {
+                    console.log("friend draw");
+                    $scope.gameStatus = "friendDraw";
+                    $scope.statusText = data.activeUser.username + ' ' + ':מצייר כעת';
+                    //$scope.timeleft = data.remainingTime / 1000;
+                    // turn on drawing timer
+                    //$scope.drawingTimer = setInterval(timerTick, 1000);
+                }
             }
         });
 
         MeanSocket.on('readyToDraw:' + $scope.channel, function (data) {
-            //if ($scope.myturn) {
-            $scope.activeUser = '';
-            $scope.gameStatus = "readyToDraw";
-            $scope.statusText = 'לחץ על כפתור התחל משחק והתחל לצייר';
-            $scope.myturn = false;
-            //}
+            if ($state.current.name === 'Pictionary game') {
+                //if ($scope.myturn) {
+                $scope.activeUser = '';
+                $scope.gameStatus = "readyToDraw";
+                $scope.statusText = 'לחץ על כפתור התחל משחק והתחל לצייר';
+                $scope.myturn = false;
+                //}
+            }
         });
 
         MeanSocket.on('wordGuessed:' + $scope.channel, function (data) {
-            stopTimer();
-            console.log("wordGuessed");
-            if ($scope.gameStatus !== 'wait') {
-                //if user is the one who guessed
-                if (MeanUser.user._id == data.user._id) {
-                    $scope.modalHeader = "כל הכבוד!";
-                    $scope.modalBody = "ניחשת נכון המילה היא: " + data.word;
-                    $scope.open();
-                }
-                else{
-                    $scope.modalHeader = "המילה נוחשה נכון!";
-                    $scope.modalBody =data.user.username + " ניחש את המילה: "+ data.word;
-                    $scope.open();
+            if ($state.current.name === 'Pictionary game') {
+                stopTimer();
+                console.log("wordGuessed");
+                if ($scope.gameStatus !== 'wait') {
+                    //if user is the one who guessed
+                    if (MeanUser.user._id == data.user._id) {
+                        $scope.modalHeader = "כל הכבוד!";
+                        $scope.modalBody = "ניחשת נכון המילה היא: " + data.word;
+                        $scope.open();
+                    }
+                    else {
+                        $scope.modalHeader = "המילה נוחשה נכון!";
+                        $scope.modalBody = data.user.username + " ניחש את המילה: " + data.word;
+                        $scope.open();
+                    }
                 }
             }
         });
 
 
         MeanSocket.on('wordNotGuessed:' + $scope.channel, function (data) {
-            if ($scope.gameStatus !== 'wait') {
-            $scope.modalHeader = "נגמר הזמן...";
-            $scope.modalBody = "המילה היתה: " + data.word;
-            $scope.open();
-            /*alert("The turn is over! The word was " + data.word);*/
+            if ($state.current.name === 'Pictionary game') {
+                if ($scope.gameStatus !== 'wait') {
+                    $scope.modalHeader = "נגמר הזמן...";
+                    $scope.modalBody = "המילה היתה: " + data.word;
+                    $scope.open();
+                    /*alert("The turn is over! The word was " + data.word);*/
+                }
             }
         });
 
@@ -249,21 +262,25 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
          });*/
 
-        $scope.init=function(){
-            $scope.channel = $stateParams.category;
-            //join channel
-            //$scope.statusText = 'status: online';
-            console.log("logged user: " + MeanUser.user.name);
-            MeanSocket.emit('channel:join', {
-                channel: $scope.channel,
-                user: MeanUser.user
-            });
+        $scope.init = function () {
+            if ($state.current.name === 'Pictionary game') {
+                $scope.channel = $stateParams.category;
+                //join channel
+                //$scope.statusText = 'status: online';
+                console.log("logged user: " + MeanUser.user.name);
+                MeanSocket.emit('channel:join', {
+                    channel: $scope.channel,
+                    user: MeanUser.user
+                });
+            }
         }
 
 
         $scope.$on('$destroy', function () {
-            // Make sure that the interval is destroyed too
-            stopTimer();
+            if ($state.current.name === 'Pictionary game') {
+                // Make sure that the interval is destroyed too
+                stopTimer();
+            }
         });
 
         /*        //disconnect
