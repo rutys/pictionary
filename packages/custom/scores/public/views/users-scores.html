@@ -5,7 +5,7 @@
    </div>
     <div class="col-lg-11">
     <legend>
-        <div class="pictionaryLogo"/>
+        <div style="width: 600px; height: 140px;" class="pictionaryLogo"/>
     </legend>
  <!--   <div class="col-lg-4 col-lg-offset-2" style="margin-right:10px;">
 
@@ -19,12 +19,15 @@
 </div>-->
     <div class="user-window col-lg-6 col-lg-offset-3" id="user_window_1" style="margin-right:10px;">
         <div class="wrap_panel col-xs-12 col-md-12">
-            <span class="users_tri_icon"></span>
-            <div class="users-panel" style="height:450px;" >
+            <span style=" width: 30%; height: 40%;" class="users_tri_icon"></span>
+            <div class="users-panel" style="overflow-y: auto;height:450px;padding-top: 50px;" >
 
                 <div class="panel-body user_container_base" style="margin-top:50px" >
                     <div class="users users_per_chanel" data-ng-repeat="u in scores">
-                        <p> {{u.username}} : {{u.score}}</p>
+                        <div style="margin-top: 3px; margin-bottom: 3px; font-size: large; background-color: white;height: 35px; padding-top: 5px; border-radius: 3px;text-align: right;color: #026A72;padding-right: 15px;padding-left: 15px;">
+                            <div style="float: right; font-weight: bold;">{{u.username}}</div> <div style="float: left">{{u.score}}</div>
+                        </div>
+            <!--            <p> {{u.username}} : {{u.score}}</p>-->
                     </div>
                 </div>
             </div>
