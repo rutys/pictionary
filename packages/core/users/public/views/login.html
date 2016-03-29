@@ -1,42 +1,85 @@
 <div data-ng-controller="LoginCtrl as login">
 
-    <div class="alert alert-danger animated fadeIn" ng-show="login.loginError">{{login.loginError}}</div>
+    <div class="alert alert-danger animated fadeIn" ng-
+
+show="login.loginError">{{login.loginError}}</div>
 
     <h2 style="float: right ; width: 100%; padding-left: 310px;">התחבר</h2>
 
     <form id="login_form" ng-submit="login.login()">
+
         <div style="width: 100%">
+
         <div style="float: right" class="input-wrapper">
-            <input required id="email_block" type="email" name="email" placeholder="כתובת דואר אלקטרוני" ng-model="login.user.email">
+
+            <input style="text-align: right; padding-right: 20px;" required 
+
+id="email_block" type="email" name="email" placeholder="כתובת דואר אלקטרוני" 
+
+ng-model="login.user.email">
+
             <div class="error_message">נא להזין את המידע נכון</div>
-            <span class="pic email"></span>
+
+            <span style="right: 350px;" class="pic email"></span>
+
         </div>
+
         </div>
+
         <div style="width: 100%">
+
         <div style="float: right" class="input-wrapper">
-            <input required id="password_block" name="password" type="{{login.input.type}}" placeholder="סיסמא" ng-model="login.user.password"/>
+
+            <input style="text-align: right; padding-right: 20px;" required 
+
+id="password_block" name="password" type="{{login.input.type}}" 
+
+placeholder="סיסמא" ng-model="login.user.password"/>
+
             <div class="error_message">נא להזין את המידע נכון</div>
-                <span class="pic password {{login.input.iconClass}}" ng-click = "login.togglePasswordVisible()"/>
+
+                <span style="right: 350px;" class="pic password 
+
+{{login.input.iconClass}}" ng-click = "login.togglePasswordVisible()"/>
+
                       <div class="hide_text_password">
+
                           {{login.input.tooltipText}}
+
                       </div>
+
                 </span>
-        </div>
+
         </div>
 
-
+        </div>
 
         <div style="height: 17px" class="forgot_password ">
-            <a style="float: right" style="font-family:'myPictionaryFont', Arial, sans-serif;" ui-sref='forgot-password'>?שכחת את הסיסמה</a>
+
+            <a style="float: right" style="font-family:'myPictionaryFont', 
+
+Arial, sans-serif;" ui-sref='forgot-password'>?שכחת את הסיסמה</a>
+
         </div>
+
         <div style="float: right; padding-left: 30px;" class="button_login">
-            <button type="submit" class="submit_button" style="float: right;  margin-left: 15px;">התחבר</button>
+
+            <button type="submit" class="submit_button" style="float: right;  
+
+margin-left: 15px;">התחבר</button>
+
             <p style="float: right">?עדיין לא נרשמת</p>
+
             <a style="float: right" ui-sref='auth.register' >הרשם</a>
+
         </div>
+
         <div class="woman_ninja_bottom"></div>
+
             <!--<img src="/theme/assets/img/woman_ninja.png" alt="#">-->
+
             <!--<img src="/theme/assets/img/pictionaryLogo.png">-->
+
     </form>
 
 </div>
