@@ -227,8 +227,8 @@ exports.saveActiveGame = function (data, cb) {
 
 exports.updateJoinedUser = function (data, cb) {
     User.findById(data.user._id, function (err, doc) {
-        if(!doc)
-        return;
+        if (!doc)
+          return;
         doc.socketId = data.socketId;
         doc.channel = data.channel;
 

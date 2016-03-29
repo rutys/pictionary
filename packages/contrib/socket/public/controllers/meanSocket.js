@@ -135,7 +135,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
         //todo
         MeanSocket.on('wait:' + $scope.channel, function (word) {
-            $sco    pe.gameStatus = "wait";
+            $scope.gameStatus = "wait";
             console.log('wait');
         });
 

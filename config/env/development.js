@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev',
+  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/pictionary-dev',
   debug: true,
   logging: {
     format: 'tiny'
@@ -11,7 +11,7 @@ module.exports = {
   mongoose: {
     debug: false
   },
-  hostname: 'http://localhost:3000',
+  hostname: 'http://pictionary.dev6.linnovate.net',
   app: {
     name: 'MEAN - A Modern Stack - Development'
   },

@@ -1,7 +1,7 @@
 /*global io:false*/
 'use strict';
 
-var baseUrl = 'http://localhost:3000/';
+var baseUrl = 'http://pictionary.dev6.linnovate.net/';
 
 angular.module('mean.socket').factory('MeanSocket', function($rootScope) {
 	var socket = io.connect(baseUrl);
