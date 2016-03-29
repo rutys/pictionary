@@ -11,7 +11,7 @@ module.exports = {
   mongoose: {
     debug: false
   },
-  hostname: 'http://localhost:3000',
+  hostname: 'http://pictionary.dev6.linnovate.net',
   app: {
     name: 'MEAN - A Modern Stack - Development'
   },
