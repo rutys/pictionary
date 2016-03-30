@@ -33,7 +33,10 @@
  };
 
  });*/
-
+angular.module('mean.socket').controller('MySocketController', ['$scope', '$state', '$stateParams', 'Global', 'MeanSocket', 'MeanUser', '$interval', '$rootScope', '$uibModal',
+    function ($scope, $state, $stateParams, Global, MeanSocket, MeanUser, $interval, $rootScope, $uibModal) {
+        var x=7;
+    }]);
 
 angular.module('mean.socket').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, modalHeader, modalBody) {
 
@@ -116,7 +119,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         });
 
         MeanSocket.on("activeUser:disconnect:" + $scope.channel, function (user) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 console.log('activeUser:disconnect ');
                 if (!$scope.myturn) {
                     $scope.modalHeader = "הסיבוב נגמר";
@@ -130,14 +133,14 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
         //todo
         MeanSocket.on('wait:' + $scope.channel, function (word) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game'&& $scope.channel == $stateParams.category) {
                 $scope.gameStatus = "wait";
                 console.log('wait');
             }
         });
 
         MeanSocket.on('youDraw:' + $scope.channel, function (word) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game'&& $scope.channel == $stateParams.category) {
                 $scope.myturn = true;
                 $scope.myword = word;
                 $scope.gameStatus = "youDraw";
@@ -165,7 +168,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
          }*/
 
         function timerTick() {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game'&& $scope.channel == $stateParams.category) {
                 if ($scope.timeleft > 0) {
                     var x = $scope.timeleft - 1;
                     $scope.timeleft = x;
@@ -184,23 +187,23 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         }
 
         function stopTimer() {
-            if ($state.current.name === 'Pictionary game') {
+         /*   if ($state.current.name === 'Pictionary game') {*/
                 if (angular.isDefined($scope.drawingTimer)) {
                     $interval.cancel($scope.drawingTimer);
                     $scope.drawingTimer = undefined;
                     $scope.timeleft = timeConfig;
                 }
-            }
+           /* }*/
         }
 
         function startTimer() {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 $scope.drawingTimer = $interval(timerTick, 1000);
             }
         }
 
         MeanSocket.on('friendDraw:' + $scope.channel, function (data) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 startTimer();
                 $scope.activeUser = data.activeUser;
                 if (!$scope.myturn) {
@@ -215,7 +218,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         });
 
         MeanSocket.on('readyToDraw:' + $scope.channel, function (data) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 //if ($scope.myturn) {
                 $scope.activeUser = '';
                 $scope.gameStatus = "readyToDraw";
@@ -226,7 +229,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
         });
 
         MeanSocket.on('wordGuessed:' + $scope.channel, function (data) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 stopTimer();
                 console.log("wordGuessed");
                 if ($scope.gameStatus !== 'wait') {
@@ -247,10 +250,13 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
 
         MeanSocket.on('wordNotGuessed:' + $scope.channel, function (data) {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 if ($scope.gameStatus !== 'wait') {
                     $scope.modalHeader = "נגמר הזמן...";
-                    $scope.modalBody = "המילה היתה: " + data.word;
+                    if($scope.myturn)
+                        $scope.modalBody = "הפעם לא ניחשו את המילה שלך :(";
+                    else
+                        $scope.modalBody = "המילה היתה: " + data.word;
                     $scope.open();
                     /*alert("The turn is over! The word was " + data.word);*/
                 }
@@ -263,7 +269,7 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
          });*/
 
         $scope.init = function () {
-            if ($state.current.name === 'Pictionary game') {
+            if ($state.current.name === 'Pictionary game' && $scope.channel == $stateParams.category) {
                 $scope.channel = $stateParams.category;
                 //join channel
                 //$scope.statusText = 'status: online';
@@ -277,11 +283,16 @@ angular.module('mean.socket').controller('MeanSocketController', ['$scope', '$st
 
 
         $scope.$on('$destroy', function () {
-            if ($state.current.name === 'Pictionary game') {
+            //if ($state.current.name === 'Pictionary game') {
                 // Make sure that the interval is destroyed too
                 stopTimer();
-            }
+                /*$scope.$destroy();*/
+          /*  }*/
         });
+
+        //MeanSocket.on('stopMyTimer', function (data) {
+        //        stopTimer();
+        //});
 
         /*        //disconnect
          //todo: emit disconnect on return page etc
